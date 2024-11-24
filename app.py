@@ -1,7 +1,8 @@
 from flask import Flask, request, send_from_directory
 import subprocess
 import os
-import requests,time
+import requests
+import time
 from bs4 import BeautifulSoup
 from zapv2 import ZAPv2
 
@@ -11,6 +12,7 @@ ZAP_API_KEY = '3dp5bf7bm41io13cdu36df3cvb'  # Replace with your actual ZAP API k
 ZAP_URL = 'http://localhost:8080'  # Default ZAP API address
 
 zap = ZAPv2(apikey=ZAP_API_KEY, proxies={'http': ZAP_URL, 'https': ZAP_URL})
+
 def scan_vulnerabilities(url):
     """Scans a website for vulnerabilities using OWASP ZAP."""
     try:
@@ -31,7 +33,7 @@ def scan_vulnerabilities(url):
             time.sleep(5)  # Wait 5 seconds between checks
 
         print("Scan completed.")
-        
+
         # Retrieve the results
         alerts = zap.core.alerts(baseurl=url)
         if alerts:
@@ -45,7 +47,6 @@ def scan_vulnerabilities(url):
     except Exception as e:
         print(f"Error during scan: {str(e)}")
         return f"Error during scan: {str(e)}"
-
 
 def scan_malware(url):
     """Mock function to simulate scanning a website for malware."""
